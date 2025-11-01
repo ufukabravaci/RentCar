@@ -1,12 +1,92 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "C:\\Users\\Ufuk\\RentCar\\RentCarServer\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F91C5A17-6C17-478C-8DBF-E6883FEF55B9}|RentCarServer.Application\\RentCarServer.Application.csproj|c:\\users\\ufuk\\rentcar\\rentcarserver\\rentcarserver.application\\registrarservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F91C5A17-6C17-478C-8DBF-E6883FEF55B9}|RentCarServer.Application\\RentCarServer.Application.csproj|solutionrelative:rentcarserver.application\\registrarservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F91C5A17-6C17-478C-8DBF-E6883FEF55B9}|RentCarServer.Application\\RentCarServer.Application.csproj|c:\\users\\ufuk\\rentcar\\rentcarserver\\rentcarserver.application\\behaviors\\permissionbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F91C5A17-6C17-478C-8DBF-E6883FEF55B9}|RentCarServer.Application\\RentCarServer.Application.csproj|solutionrelative:rentcarserver.application\\behaviors\\permissionbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F91C5A17-6C17-478C-8DBF-E6883FEF55B9}|RentCarServer.Application\\RentCarServer.Application.csproj|c:\\users\\ufuk\\rentcar\\rentcarserver\\rentcarserver.application\\services\\iusercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F91C5A17-6C17-478C-8DBF-E6883FEF55B9}|RentCarServer.Application\\RentCarServer.Application.csproj|solutionrelative:rentcarserver.application\\services\\iusercontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F91C5A17-6C17-478C-8DBF-E6883FEF55B9}|RentCarServer.Application\\RentCarServer.Application.csproj|c:\\users\\ufuk\\rentcar\\rentcarserver\\rentcarserver.application\\behaviors\\validationbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{F91C5A17-6C17-478C-8DBF-E6883FEF55B9}|RentCarServer.Application\\RentCarServer.Application.csproj|solutionrelative:rentcarserver.application\\behaviors\\validationbehavior.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 4,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "IUserContext.cs",
+              "DocumentMoniker": "C:\\Users\\Ufuk\\RentCar\\RentCarServer\\RentCarServer.Application\\Services\\IUserContext.cs",
+              "RelativeDocumentMoniker": "RentCarServer.Application\\Services\\IUserContext.cs",
+              "ToolTip": "C:\\Users\\Ufuk\\RentCar\\RentCarServer\\RentCarServer.Application\\Services\\IUserContext.cs",
+              "RelativeToolTip": "RentCarServer.Application\\Services\\IUserContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T18:43:05.884Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "PermissionBehavior.cs",
+              "DocumentMoniker": "C:\\Users\\Ufuk\\RentCar\\RentCarServer\\RentCarServer.Application\\Behaviors\\PermissionBehavior.cs",
+              "RelativeDocumentMoniker": "RentCarServer.Application\\Behaviors\\PermissionBehavior.cs",
+              "ToolTip": "C:\\Users\\Ufuk\\RentCar\\RentCarServer\\RentCarServer.Application\\Behaviors\\PermissionBehavior.cs",
+              "RelativeToolTip": "RentCarServer.Application\\Behaviors\\PermissionBehavior.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAACoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T18:38:38.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ValidationBehavior.cs",
+              "DocumentMoniker": "C:\\Users\\Ufuk\\RentCar\\RentCarServer\\RentCarServer.Application\\Behaviors\\ValidationBehavior.cs",
+              "RelativeDocumentMoniker": "RentCarServer.Application\\Behaviors\\ValidationBehavior.cs",
+              "ToolTip": "C:\\Users\\Ufuk\\RentCar\\RentCarServer\\RentCarServer.Application\\Behaviors\\ValidationBehavior.cs",
+              "RelativeToolTip": "RentCarServer.Application\\Behaviors\\ValidationBehavior.cs",
+              "ViewState": "AgIAABUAAAAAAAAAAAAAAAQAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-31T18:18:30.704Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "RegistrarService.cs",
+              "DocumentMoniker": "C:\\Users\\Ufuk\\RentCar\\RentCarServer\\RentCarServer.Application\\RegistrarService.cs",
+              "RelativeDocumentMoniker": "RentCarServer.Application\\RegistrarService.cs",
+              "ToolTip": "C:\\Users\\Ufuk\\RentCar\\RentCarServer\\RentCarServer.Application\\RegistrarService.cs",
+              "RelativeToolTip": "RentCarServer.Application\\RegistrarService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAA9AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T19:21:53.859Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

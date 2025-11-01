@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v9.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v9.0": {
+      "RentCarServer.Domain/1.0.0": {
+        "runtime": {
+          "RentCarServer.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "RentCarServer.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}
