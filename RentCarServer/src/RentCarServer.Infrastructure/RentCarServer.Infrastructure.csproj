@@ -18,7 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\RentCarServer.Application\RentCarServer.Application.csproj" />
+    <ProjectReference Include="..\RentCarServer.Application\RentCarServer.Application.csproj" />
     <ProjectReference Include="..\RentCarServer.Domain\RentCarServer.Domain.csproj" />
   </ItemGroup>
 
