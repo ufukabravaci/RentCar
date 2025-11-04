@@ -13,7 +13,8 @@ public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<
         _validators = validators;
     }
 
-    public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
+    public async Task<TResponse> Handle
+        (TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
         if (!_validators.Any())
         {
@@ -39,8 +40,8 @@ public sealed class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<
         {
             var errors = errorDictionary.Select(s => new ValidationFailure
             {
-                PropertyName = s.Value,
-                ErrorCode = s.Key
+                PropertyName = s.Key,
+                ErrorCode = s.Value
             });
             throw new ValidationException(errors);
         }

@@ -13,6 +13,7 @@ internal class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        //Tüm configurationları uygulamak için. CarConfig UserConfig vs IEntityTypeConfiguration<T> implemente etmesi yeterli.
         modelBuilder.ApplyConfigurationsFromAssembly(typeof(ApplicationDbContext).Assembly);
         modelBuilder.ApplyGlobalFilters();
         base.OnModelCreating(modelBuilder);

@@ -9,12 +9,13 @@ public static class ServiceRegistrar
 {
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
+        services.AddHttpContextAccessor();
         services.AddDbContext<ApplicationDbContext>(opt =>
         {
             string con = configuration.GetConnectionString("SqlServer")!;
             opt.UseSqlServer(con);
         });
-        //Class ismi ile interface ismi aynıysa otomatik olarak add scoped ile otomatik containera ekler.
+        //Class ismi ile interface ismi aynıysa otomatik olarak add scoped ile otomatik containera ekler.(Scrutor)
         services.Scan(action => action.
         FromAssemblies(typeof(ServiceRegistrar).Assembly)
         .AddClasses(publicOnly: false)
