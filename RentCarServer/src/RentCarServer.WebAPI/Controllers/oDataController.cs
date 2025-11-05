@@ -7,7 +7,7 @@ namespace RentCarServer.WebAPI.Controllers;
 [Route("api/[controller]")]
 [ApiController]
 [EnableQuery] //OData sorgularını aktif eder
-public class oDataController : ControllerBase
+public class ODataController : ControllerBase
 {
     public static IEdmModel GetEdmModel() //Edm => entity data model. Verileri işleyebilmek için Odata ister.
     {
