@@ -37,12 +37,12 @@ internal class ApplicationDbContext : DbContext, IUnitOfWork
 
         HttpContextAccessor httpContextAccessor = new();
         string userIdString =
-            httpContextAccessor
-            .HttpContext!
-            .User
-            .Claims
-            .First(p => p.Type == ClaimTypes.NameIdentifier)
-            .Value;
+        httpContextAccessor
+        .HttpContext!
+        .User
+        .Claims
+        .First(p => p.Type == ClaimTypes.NameIdentifier)
+        .Value;
 
         Guid userId = Guid.Parse(userIdString);
         IdentityId identityId = new(userId);
@@ -88,5 +88,6 @@ internal class ApplicationDbContext : DbContext, IUnitOfWork
 
 internal sealed class IdentityIdValueConverter : ValueConverter<IdentityId, Guid>
 {
+    //Veritabanına kayıt ederken IdentityId.Value alır.Veritabanından okurken yeni bir IdentityId(guid)nesnesi yaratır
     public IdentityIdValueConverter() : base(m => m.Value, m => new IdentityId(m)) { }
 }
