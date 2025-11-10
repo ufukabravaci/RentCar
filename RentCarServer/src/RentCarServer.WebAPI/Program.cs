@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.RateLimiting;
 using RentCarServer.Application;
 using RentCarServer.Infrastructure;
+using RentCarServer.WebAPI;
 using RentCarServer.WebAPI.Modules;
 using Scalar.AspNetCore;
 using System.Threading.RateLimiting;
@@ -20,6 +21,13 @@ builder.Services.AddRateLimiter(cfr =>
         opt.Window = TimeSpan.FromSeconds(1);
         opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
     });
+    cfr.AddFixedWindowLimiter("login-fixed", opt =>
+    {
+        opt.PermitLimit = 5;
+        opt.QueueLimit = 1;
+        opt.Window = TimeSpan.FromMinutes(1);
+        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    });
 });
 
 builder.Services.AddControllers().AddOData(
@@ -28,6 +36,8 @@ builder.Services.AddControllers().AddOData(
 
 builder.Services.AddCors();
 builder.Services.AddOpenApi();
+builder.Services.AddExceptionHandler<ExceptionHandler>().AddProblemDetails();
+builder.Services.AddResponseCompression(opt => opt.EnableForHttps = true);
 
 // ==========================================================================================================
 var app = builder.Build();
@@ -39,10 +49,12 @@ app.UseCors(x => x
     .AllowAnyOrigin()
     .AllowAnyMethod()
     .SetPreflightMaxAge(TimeSpan.FromMinutes(10)));
-
+app.UseResponseCompression();
 app.UseAuthentication();
 app.UseAuthorization();
-app.MapControllers().RequireRateLimiting("fixed");
+app.UseRateLimiter();
+app.UseExceptionHandler();
+app.MapControllers().RequireRateLimiting("fixed").RequireAuthorization();
 app.MapAuthEndpoint();
 //await app.CreateFirstUser();
 app.Run();

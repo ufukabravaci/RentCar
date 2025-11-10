@@ -3,22 +3,10 @@ import { CanActivateChildFn, Router } from '@angular/router';
 import { jwtDecode } from 'jwt-decode';
 
 interface JwtPayload {
-  // Standart claims
-  iss?: string; // (Issuer) – Token’ı kim oluşturdu
-  sub?: string; // (Subject) – Token kime ait
-  aud?: string | string[]; // (Audience) – Token’ın geçerli olduğu hedef(ler)
-  exp?: number; // (Expiration time) – Token geçerlilik süresi (epoch time)
-  nbf?: number; // (Not before) – Bu zamandan önce token geçerli değildir
-  iat?: number; // (Issued at) – Token’ın oluşturulma zamanı
-  jti?: string; // (JWT ID) – Token’a özgü benzersiz ID
-
-  // Uygulamaya özgü claims
-  userId?: string | number;
+  exp?: number;
+  userId?: string;
+  fullName?: string;
   email?: string;
-  name?: string;
-  role?: string;
-  permissions?: string[];
-  [key: string]: unknown; // yeni claim geldiğinde kod kırılmaz
 }
 export const authGuard: CanActivateChildFn = () => {
   const token = localStorage.getItem('response');

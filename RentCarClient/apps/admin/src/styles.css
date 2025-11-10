@@ -6755,4 +6755,7 @@ body {
 .photo-item.new-photo {
     animation: fadeInPhoto 0.5s ease-out;
 }
+a{
+    cursor: pointer;
+}
 
