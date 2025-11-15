@@ -7,13 +7,19 @@ import { FlexiToastService } from 'flexi-toast';
 })
 export class ErrorService {
   readonly #toast = inject(FlexiToastService);
+
   handle(err: HttpErrorResponse) {
     const status = err.status;
+
     if (status === 403 || status === 422 || status === 500) {
-      const messages = err.error.errorMessages;
-      messages.forEach((val: string) => {
-        this.#toast.showToast('Hata!', val, 'error');
-      });
+      const messages: string[] = err.error.errorMessages;
+      if (Array.isArray(messages)) {
+        messages.forEach(msg =>
+          this.#toast.showToast('Hata!', msg, 'error')
+        );
+      } else if (typeof messages === 'string') {
+        this.#toast.showToast('Hata!', messages, 'error');
+      }
     }
   }
 }

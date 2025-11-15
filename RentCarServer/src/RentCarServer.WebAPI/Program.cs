@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.OData;
 using Microsoft.AspNetCore.RateLimiting;
 using RentCarServer.Application;
+using RentCarServer.Application.Services;
 using RentCarServer.Infrastructure;
 using RentCarServer.WebAPI;
 using RentCarServer.WebAPI.Modules;
@@ -26,6 +27,12 @@ builder.Services.AddRateLimiter(cfr =>
         opt.PermitLimit = 5;
         opt.QueueLimit = 1;
         opt.Window = TimeSpan.FromMinutes(1);
+        opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
+    });
+    cfr.AddFixedWindowLimiter("forgot-password-fixed", opt =>
+    {
+        opt.PermitLimit = 2;
+        opt.Window = TimeSpan.FromMinutes(5);
         opt.QueueProcessingOrder = QueueProcessingOrder.OldestFirst;
     });
 });
@@ -56,6 +63,11 @@ app.UseRateLimiter();
 app.UseExceptionHandler();
 app.MapControllers().RequireRateLimiting("fixed").RequireAuthorization();
 app.MapAuthEndpoint();
+app.MapGet("/", async (IMailService mailService) =>
+{
+    await mailService.SendAsync("ufukabravaci@gmail.com", "test", "<h1><b>Bu bir test mailidir2.</b></h1>", default);
+    return Results.Ok();
+});
 //await app.CreateFirstUser();
 app.Run();
 

@@ -1,49 +1,61 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using RentCarServer.Application.Behaviors;
+using System.Text.Encodings.Web;
+using System.Text.Json;
 using TS.Result;
 
 namespace RentCarServer.WebAPI;
 
 public sealed class ExceptionHandler : IExceptionHandler
 {
-    public async ValueTask<bool> TryHandleAsync(HttpContext httpContext, Exception exception, CancellationToken cancellationToken)
+    public async ValueTask<bool> TryHandleAsync(
+        HttpContext httpContext,
+        Exception exception,
+        CancellationToken cancellationToken)
     {
-        Result<string> errorResult;
-
         httpContext.Response.ContentType = "application/json";
         httpContext.Response.StatusCode = 500;
 
         var actualException = exception is AggregateException agg && agg.InnerException != null
-        ? agg.InnerException
-        : exception;
+            ? agg.InnerException
+            : exception;
 
-        var exceptionType = actualException.GetType();
-        var validationExceptionType = typeof(ValidationException);
-        var authorizationExceptionType = typeof(AuthorizationException);
-
-        if (exceptionType == validationExceptionType)
+        // 🔸 FluentValidation hatası
+        if (actualException is ValidationException validationException)
         {
             httpContext.Response.StatusCode = 422;
 
-            errorResult = Result<string>.Failure(422, ((ValidationException)exception).Errors.Select(s => s.PropertyName).ToList());
+            // Her error için yalnızca ErrorMessage alıyoruz
+            var validationMessages = validationException.Errors
+                .Select(e => e.ErrorMessage)
+                .ToList();
 
-            await httpContext.Response.WriteAsJsonAsync(errorResult);
+            var errorResult = Result<string>.Failure(422, validationMessages);
 
+            var jsonOptions = new JsonSerializerOptions
+            {
+                Encoder = JavaScriptEncoder.UnsafeRelaxedJsonEscaping
+            };
+
+            await httpContext.Response.WriteAsJsonAsync(errorResult, jsonOptions, cancellationToken);
             return true;
         }
 
-        if (exceptionType == authorizationExceptionType)
+        // 🔸 Authorization hatası
+        if (actualException is AuthorizationException)
         {
             httpContext.Response.StatusCode = 403;
-            errorResult = Result<string>.Failure(403, "Bu işlem için yetkiniz yok");
-            await httpContext.Response.WriteAsJsonAsync(errorResult);
+
+            var errorResult = Result<string>.Failure(403, "Bu işlem için yetkiniz yok.");
+
+            await httpContext.Response.WriteAsJsonAsync(errorResult, cancellationToken);
             return true;
         }
 
-        errorResult = Result<string>.Failure(exception.Message);
-
-        await httpContext.Response.WriteAsJsonAsync(errorResult);
+        // 🔸 Diğer tüm hatalar
+        var generalError = Result<string>.Failure(actualException.Message);
+        await httpContext.Response.WriteAsJsonAsync(generalError, cancellationToken);
 
         return true;
     }
