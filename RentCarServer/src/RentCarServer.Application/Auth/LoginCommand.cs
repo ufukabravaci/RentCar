@@ -35,7 +35,7 @@ public sealed class LoginCommandHandler(IUserRepository userRepository, IJwtProv
         {
             return Result<string>.Failure("KUllanıcı bilgisi ya da şifre hatalı.");
         }
-        var token = jwtProvider.CreateToken(user);
+        var token = jwtProvider.CreateTokenAsync(user);
         return token; //Result<string>.Succeed(token) yazmamıza gerek yok implicit operator kullandığımız için
     }
 }

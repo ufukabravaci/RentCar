@@ -12,13 +12,13 @@ public sealed class User : Entity
         UserName userName,
         Password password)
     {
-        FirstName = firstName;
-        LastName = lastName;
-        Email = email;
-        UserName = userName;
-        Password = password;
-        FullName = new(FirstName.Value + " " + LastName.Value + " (" + Email.Value + ")");
-        IsForgotPasswordCompleted = new(true);
+        SetFirstName(firstName);
+        SetLastName(lastName);
+        SetEmail(email);
+        SetUserName(userName);
+        SetPassword(password);
+        SetFullName();
+        SetIsForgotPasswordCompleted(new(true));
     }
 
     public FirstName FirstName { get; private set; } = default!;
@@ -31,6 +31,7 @@ public sealed class User : Entity
     public ForgotPasswordDate? ForgotPasswordDate { get; private set; }
     public IsForgotPasswordCompleted IsForgotPasswordCompleted { get; private set; } = default!;
 
+    #region Behaviors
 
     public bool VerifyPasswordHash(string password)
     {
@@ -45,8 +46,35 @@ public sealed class User : Entity
         IsForgotPasswordCompleted = new(false);
     }
 
+    public void SetFirstName(FirstName firstName) //user'a set edilme şartlarını kontrol eder.            
+    {                                          //FirstName Classı firstname'in oluşturulma şartlarını kontrol eder.
+        FirstName = firstName;                 //Validasyon => FirstName kuralları => Usera set edilme kuralları
+    }
+    public void SetLastName(LastName lastName)
+    {
+        LastName = lastName;
+    }
+    public void SetEmail(Email email)
+    {
+        Email = email;
+    }
+    public void SetUserName(UserName userName)
+    {
+        UserName = userName;
+    }
+
     public void SetPassword(Password password)
     {
         Password = password;
     }
+    public void SetFullName()
+    {
+        FullName = new(FirstName.Value + " " + LastName.Value + " (" + Email.Value + ")");
+    }
+    public void SetIsForgotPasswordCompleted(IsForgotPasswordCompleted isForgotPasswordCompleted)
+    {
+        IsForgotPasswordCompleted = isForgotPasswordCompleted;
+    }
+
+    #endregion
 }
