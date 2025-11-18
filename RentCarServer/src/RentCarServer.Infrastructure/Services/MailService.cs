@@ -4,9 +4,10 @@ using RentCarServer.Application.Services;
 namespace RentCarServer.Infrastructure.Services;
 internal sealed class MailService(IFluentEmail fluentEmail) : IMailService
 {
-    public async Task SendAsync(string to, string subject, string body, CancellationToken cancellationToken)
+    public async Task SendAsync(string to, string subject, string body,
+        CancellationToken cancellationToken = default)
     {
-        var sendResponse = await fluentEmail.To(to).Subject(subject).Body(body).SendAsync(cancellationToken);
+        var sendResponse = await fluentEmail.To(to).Subject(subject).Body(body, true).SendAsync(cancellationToken);
 
         if (!sendResponse.Successful)
         {

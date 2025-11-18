@@ -10,7 +10,7 @@ import {
 import { FormsModule, NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormValidateDirective } from 'form-validate-angular';
-import { HttpService } from '../../services/http';
+import { HttpService } from '../../../services/http';
 import { FlexiToastService } from 'flexi-toast';
 
 @Component({
