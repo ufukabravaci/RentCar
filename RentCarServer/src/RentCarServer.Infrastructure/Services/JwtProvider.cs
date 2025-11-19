@@ -35,18 +35,23 @@ internal class JwtProvider(
             audience: options.Value.Audience,
             claims: claims,
             notBefore: DateTime.Now,
-            expires: DateTime.Now.AddDays(1),
+            expires: expires,
             signingCredentials: signingCredentials
             );
         var handler = new JwtSecurityTokenHandler();
         var token = handler.WriteToken(securityToken);
-
+        //create logintoken, save it to db and set isActive false for older tokens.
         Token newToken = new(token);
         ExpireDate expireDate = new(expires);
         LoginToken loginToken = new(newToken, user.Id, expireDate);
         loginTokenRepository.Add(loginToken);
-        await loginTokenRepository.Where(p => p.UserId == user.Id && p.IsActive.Value == true).
-            ExecuteUpdateAsync(setters => setters.SetProperty(u => u.IsActive.Value, false), cancellationToken);
+        var loginTokens = await loginTokenRepository.Where(p => p.UserId == user.Id && p.IsActive.Value == true)
+            .ToListAsync(cancellationToken);
+        foreach (var item in loginTokens)
+        {
+            item.SetIsActive(new(false));
+        }
+        loginTokenRepository.UpdateRange(loginTokens);
         await unitOfWork.SaveChangesAsync(cancellationToken);
 
         return token;

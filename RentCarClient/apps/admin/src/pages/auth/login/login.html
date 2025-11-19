@@ -57,13 +57,18 @@
                 ngModel
                 placeholder="****"
                 required
+                #passwordEl
               />
               <button
                 type="button"
                 class="input-group-text password-toggle"
-                data-target="adminPassword"
+                (click)="togglePassword()"
               >
+                @if (passwordEl.type === "password") {
                 <i class="bi bi-eye"></i>
+                }@else {
+                <i class="bi bi-eye-slash"></i>
+                }
               </button>
             </div>
           </div>
@@ -224,7 +229,7 @@
             Şifre Sıfırlama
           </h5>
           <button
-          #modalCloseBtn
+            #modalCloseBtn
             type="button"
             class="btn-close"
             data-bs-dismiss="modal"
@@ -271,7 +276,11 @@
           >
             İptal
           </button>
-          <button type="button" class="btn btn-primary" (click)="forgotPassword()">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="forgotPassword()"
+          >
             <i class="bi bi-send me-1"></i>Sıfırlama Bağlantısı Gönder
           </button>
         </div>

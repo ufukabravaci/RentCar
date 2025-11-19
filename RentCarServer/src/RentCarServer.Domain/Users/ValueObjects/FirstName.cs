@@ -1,3 +1,13 @@
 ﻿namespace RentCarServer.Domain.Users.ValueObjects;
 
-public sealed record FirstName(string Value);
+public sealed record FirstName
+{
+    public string Value { get; init; }
+    public FirstName(string value)
+    {
+        if (string.IsNullOrWhiteSpace(value) || value.Length < 2)
+            throw new ArgumentException("İsim en az 2 karakter olmalıdır.");
+
+        Value = value;
+    }
+}

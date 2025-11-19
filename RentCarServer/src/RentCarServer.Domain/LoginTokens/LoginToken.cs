@@ -4,11 +4,15 @@ using RentCarServer.Domain.LoginTokens.ValueObjects;
 namespace RentCarServer.Domain.LoginTokens;
 public sealed class LoginToken
 {
-    public LoginToken()
+    private LoginToken()
     {
     }
     public LoginToken(Token token, IdentityId userId, ExpireDate expireDate)
     {
+        if (expireDate.Value <= DateTimeOffset.Now)
+        {
+            throw new ArgumentException("Yeni oluşturulan bir token'ın tarihi geçmiş olamaz!");
+        }
         Id = new(Guid.CreateVersion7());
         SetToken(token);
         SetUserId(userId);

@@ -7,6 +7,8 @@ public sealed record Password
     }
     public Password(string password)
     {
+        if (string.IsNullOrWhiteSpace(password) || password.Length < 2)
+            throw new ArgumentException("Şifre en az 2 karakter olmalıdır.");
         CreatePasswordHash(password);
     }
     public byte[] PasswordHash { get; private set; } = default!;

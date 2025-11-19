@@ -4,7 +4,7 @@ using RentCarServer.Domain.Users.ValueObjects;
 namespace RentCarServer.Domain.Users;
 public sealed class User : Entity
 {
-    public User() { }
+    private User() { }
 
     public User(FirstName firstName,
         LastName lastName,
@@ -17,7 +17,6 @@ public sealed class User : Entity
         SetEmail(email);
         SetUserName(userName);
         SetPassword(password);
-        SetFullName();
         SetIsForgotPasswordCompleted(new(true));
     }
 
@@ -48,15 +47,21 @@ public sealed class User : Entity
 
     public void SetFirstName(FirstName firstName) //user'a set edilme şartlarını kontrol eder.            
     {                                          //FirstName Classı firstname'in oluşturulma şartlarını kontrol eder.
-        FirstName = firstName;                 //Validasyon => FirstName kuralları => Usera set edilme kuralları
+        if (FirstName == firstName) return;     //Validasyon => FirstName kuralları => Usera set edilme kuralları
+        FirstName = firstName;
+        SetFullName();
     }
     public void SetLastName(LastName lastName)
     {
+        if (LastName == lastName) return;
         LastName = lastName;
+        SetFullName();
     }
     public void SetEmail(Email email)
     {
+        if (Email == email) return;
         Email = email;
+        SetFullName();
     }
     public void SetUserName(UserName userName)
     {

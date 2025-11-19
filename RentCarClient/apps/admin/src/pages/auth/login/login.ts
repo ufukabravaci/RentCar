@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-expressions */
 import {
   ChangeDetectionStrategy,
   Component,
@@ -25,8 +26,17 @@ export default class Login {
   readonly #toast = inject(FlexiToastService);
   readonly loading = signal<boolean>(false);
   readonly email = signal<string>('');
+  readonly passwordEl =
+    viewChild<ElementRef<HTMLInputElement>>('newPasswordEl');
   readonly closenBtn =
     viewChild<ElementRef<HTMLButtonElement>>('modalCloseBtn');
+
+  togglePassword() {
+    this.passwordEl()?.nativeElement.type === 'password'
+      ? this.passwordEl()?.nativeElement.setAttribute('type', 'text')
+      : this.passwordEl()?.nativeElement.setAttribute('type', 'password');
+  }
+
   login(form: NgForm) {
     if (!form.valid) return;
     this.loading.set(true);

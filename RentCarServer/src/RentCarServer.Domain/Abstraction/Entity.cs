@@ -6,11 +6,12 @@ public abstract class Entity
     {
         Id = new IdentityId(Guid.CreateVersion7()); //CreateVersion7 is sortable guid
         IsActive = true;
+        CreatedAt = DateTimeOffset.Now;
     }
     public IdentityId Id { get; private set; }
     public bool IsActive { get; private set; }
     public DateTimeOffset CreatedAt { get; private set; } //datetimeoffset adds gmt+3 to classic datetime
-    public IdentityId CreatedBy { get; private set; } = default!;
+    public IdentityId? CreatedBy { get; private set; } = default!;
     public DateTimeOffset? UpdatedAt { get; private set; }
     public IdentityId? UpdatedBy { get; private set; }
     public bool IsDeleted { get; private set; }
@@ -24,7 +25,9 @@ public abstract class Entity
 
     public void Delete()
     {
+        if (IsDeleted) return;
         IsDeleted = true;
+        DeletedAt = DateTimeOffset.Now;
     }
 }
 
