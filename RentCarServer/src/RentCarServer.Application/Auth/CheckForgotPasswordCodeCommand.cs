@@ -1,4 +1,5 @@
 ﻿using RentCarServer.Domain.Users;
+using RentCarServer.Domain.Users.ValueObjects;
 using TS.MediatR;
 using TS.Result;
 
@@ -11,9 +12,12 @@ internal sealed class CheckForgotPasswordCodeCommandHandler(IUserRepository user
 {
     public async Task<Result<bool>> Handle(CheckForgotPasswordCodeCommand request, CancellationToken cancellationToken)
     {
-        var user = await userRepository.FirstOrDefaultAsync(p => p.ForgotPasswordCode != null &&
-            p.ForgotPasswordCode.Value == request.ForgotPasswordCode &&
-            p.IsForgotPasswordCompleted.Value == false);
+        ForgotPasswordCode codeObj = request.ForgotPasswordCode;
+        var user = await userRepository.FirstOrDefaultAsync(p =>
+        p.ForgotPasswordCode == codeObj &&
+        p.IsForgotPasswordCompleted == new IsForgotPasswordCompleted(false),
+        cancellationToken
+    );
         if (user is null)
         {
             return Result<bool>.Failure("Şifre sıfırlama değeriniz geçersiz.");

@@ -45,7 +45,9 @@ internal class JwtProvider(
         ExpireDate expireDate = new(expires);
         LoginToken loginToken = new(newToken, user.Id, expireDate);
         loginTokenRepository.Add(loginToken);
-        var loginTokens = await loginTokenRepository.Where(p => p.UserId == user.Id && p.IsActive.Value == true)
+
+        var loginTokens = await loginTokenRepository
+            .Where(p => p.UserId == user.Id && p.IsActive == new IsActive(true))
             .ToListAsync(cancellationToken);
         foreach (var item in loginTokens)
         {

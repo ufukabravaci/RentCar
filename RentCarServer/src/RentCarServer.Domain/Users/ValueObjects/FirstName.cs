@@ -10,4 +10,8 @@ public sealed record FirstName
 
         Value = value;
     }
+    // FirstName -> string
+    public static implicit operator string(FirstName name) => name.Value;
+    // string -> FirstName
+    public static implicit operator FirstName(string value) => new(value);
 }

@@ -20,4 +20,5 @@ public sealed record Password
         PasswordSalt = hmac.Key;
         PasswordHash = hmac.ComputeHash(System.Text.Encoding.UTF8.GetBytes(password));
     }
+    public static implicit operator Password(string password) => new(password);
 }

@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using RentCarServer.Application.Services;
 using RentCarServer.Domain.Users;
+using RentCarServer.Domain.Users.ValueObjects;
 using TS.MediatR;
 using TS.Result;
 
@@ -23,9 +24,21 @@ public sealed class LoginCommandHandler(IUserRepository userRepository, IJwtProv
 {
     public async Task<Result<string>> Handle(LoginCommand request, CancellationToken cancellationToken)
     {
-        var user = await userRepository
-            .FirstOrDefaultAsync(p => p.Email.Value == request.EmailOrUserName
-            || p.UserName.Value == request.EmailOrUserName);
+        Email? emailToCheck = null;
+        UserName? userNameToCheck = null;
+        if (request.EmailOrUserName.Contains("@"))
+        {
+            emailToCheck = new Email(request.EmailOrUserName);
+        }
+        else
+        {
+            userNameToCheck = new UserName(request.EmailOrUserName);
+        }
+        var user = await userRepository.FirstOrDefaultAsync(p =>
+            (emailToCheck != null && p.Email == emailToCheck) ||
+            (userNameToCheck != null && p.UserName == userNameToCheck),
+            cancellationToken
+        );
         if (user is null)
         {
             return Result<string>.Failure("KUllanıcı bilgisi ya da şifre hatalı.");

@@ -26,7 +26,7 @@ internal sealed class ForgotPasswordCommandHandler(
 {
     public async Task<Result<string>> Handle(ForgotPasswordCommand request, CancellationToken cancellationToken)
     {
-        var user = await userRepository.FirstOrDefaultAsync(p => p.Email.Value == request.Email, cancellationToken);
+        var user = await userRepository.FirstOrDefaultAsync(p => p.Email == request.Email, cancellationToken);
         if (user is null)
         {
             return Result<string>.Failure("Kullanıcı bulunamadı.");

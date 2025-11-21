@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Diagnostics;
 using RentCarServer.Application.Behaviors;
+using RentCarServer.WebAPI.Middlewares;
 using System.Text.Encodings.Web;
 using System.Text.Json;
 using TS.Result;
@@ -48,6 +49,16 @@ public sealed class ExceptionHandler : IExceptionHandler
             httpContext.Response.StatusCode = 403;
 
             var errorResult = Result<string>.Failure(403, "Bu işlem için yetkiniz yok.");
+
+            await httpContext.Response.WriteAsJsonAsync(errorResult, cancellationToken);
+            return true;
+        }
+
+        if (actualException is TokenException)
+        {
+            httpContext.Response.StatusCode = 401;
+
+            var errorResult = Result<string>.Failure(403, "Token geçersiz.");
 
             await httpContext.Response.WriteAsJsonAsync(errorResult, cancellationToken);
             return true;
