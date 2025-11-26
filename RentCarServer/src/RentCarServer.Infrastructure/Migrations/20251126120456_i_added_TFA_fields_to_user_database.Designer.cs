@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using RentCarServer.Infrastructure.Context;
 
@@ -11,9 +12,11 @@ using RentCarServer.Infrastructure.Context;
 namespace RentCarServer.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251126120456_i_added_TFA_fields_to_user_database")]
+    partial class i_added_TFA_fields_to_user_database
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,46 +24,6 @@ namespace RentCarServer.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("RentCarServer.Domain.Branchs.Branch", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid?>("CreatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTimeOffset?>("DeletedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid?>("DeletedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)")
-                        .HasColumnName("Name");
-
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<Guid?>("UpdatedBy")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Branches");
-                });
 
             modelBuilder.Entity("RentCarServer.Domain.LoginTokens.LoginToken", b =>
                 {
@@ -160,7 +123,7 @@ namespace RentCarServer.Infrastructure.Migrations
                         .HasColumnType("bit")
                         .HasColumnName("TFAIsCompleted");
 
-                    b.Property<bool>("TFAStatus")
+                    b.Property<bool?>("TFAStatus")
                         .HasColumnType("bit")
                         .HasColumnName("TFAStatus");
 
@@ -185,60 +148,6 @@ namespace RentCarServer.Infrastructure.Migrations
                         .IsUnique();
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("RentCarServer.Domain.Branchs.Branch", b =>
-                {
-                    b.OwnsOne("RentCarServer.Domain.Branchs.ValueObjects.Address", "Address", b1 =>
-                        {
-                            b1.Property<Guid>("BranchId")
-                                .HasColumnType("uniqueidentifier");
-
-                            b1.Property<string>("City")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("varchar(MAX)")
-                                .HasColumnName("City");
-
-                            b1.Property<string>("District")
-                                .IsRequired()
-                                .HasMaxLength(50)
-                                .HasColumnType("varchar(MAX)")
-                                .HasColumnName("District");
-
-                            b1.Property<string>("Email")
-                                .IsRequired()
-                                .HasMaxLength(150)
-                                .HasColumnType("varchar(MAX)")
-                                .HasColumnName("Email");
-
-                            b1.Property<string>("FullAddress")
-                                .IsRequired()
-                                .HasMaxLength(500)
-                                .HasColumnType("varchar(MAX)")
-                                .HasColumnName("FullAddress");
-
-                            b1.Property<string>("PhoneNumber1")
-                                .IsRequired()
-                                .HasMaxLength(20)
-                                .HasColumnType("varchar(MAX)")
-                                .HasColumnName("PhoneNumber1");
-
-                            b1.Property<string>("PhoneNumber2")
-                                .HasMaxLength(20)
-                                .HasColumnType("varchar(MAX)")
-                                .HasColumnName("PhoneNumber2");
-
-                            b1.HasKey("BranchId");
-
-                            b1.ToTable("Branches");
-
-                            b1.WithOwner()
-                                .HasForeignKey("BranchId");
-                        });
-
-                    b.Navigation("Address")
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("RentCarServer.Domain.Users.User", b =>

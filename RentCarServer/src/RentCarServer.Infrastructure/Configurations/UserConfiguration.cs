@@ -69,5 +69,27 @@ internal sealed class UserConfiguration : IEntityTypeConfiguration<User>
                 .HasColumnType("varbinary(512)")
                 .IsRequired();
         });
+
+        //TFA
+        builder.Property(i => i.TFAStatus)
+            .HasConversion(p => p!.Value, v => new TFAStatus(v))
+            .HasColumnName("TFAStatus")
+            .IsRequired(true);
+        builder.Property(i => i.TFACode)
+            .HasConversion(p => p!.Value, v => new TFACode(v))
+            .HasColumnName("TFACode")
+            .IsRequired(false);
+        builder.Property(i => i.TFAConfirmCode)
+            .HasConversion(p => p!.Value, v => new TFAConfirmCode(v))
+            .HasColumnName("TFAConfirmCode")
+            .IsRequired(false);
+        builder.Property(i => i.TFAExpireDate)
+            .HasConversion(p => p!.Value, v => new TFAExpireDate(v))
+            .HasColumnName("TFAExpireDate")
+            .IsRequired(false);
+        builder.Property(i => i.TFAIsCompleted)
+            .HasConversion(p => p!.Value, v => new TFAIsCompleted(v))
+            .HasColumnName("TFAIsCompleted")
+            .IsRequired(false);
     }
 }
